@@ -76,7 +76,7 @@ class UserController extends Controller
      * @param int $user
      * @return Response
      */
-    public function show(ShowUserRequest $request, User $user)
+    public function show(ShowUserRequest|Request $request, User $user)
     {
         dd($user);
     }
@@ -124,6 +124,6 @@ class UserController extends Controller
 
     public function profile(Request $request): Response
     {
-        return $this->show($request, auth()->user()->id());
+        return $this->show($request, auth()->user());
     }
 }
