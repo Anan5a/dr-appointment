@@ -42,11 +42,11 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, User $user)
     {
-        if ($user->hasRole('patient')){
-            $this->redirectTo = route('home.index');
+        if ($user->hasAnyRole(['super admin','manager','doctor'])){
+            return redirect()->route('admin.home.index');
         }
-        elseif ($user->hasAnyRole(['super admin','manager','doctor'])){
-            $this->redirectTo = route('admin.home.index');
+        elseif ($user->hasRole('patient')){
+            return redirect()->route('admin.home.index');
         }
     }
 }
