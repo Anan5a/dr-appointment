@@ -127,7 +127,7 @@
                                     <label>User Role</label>
                                     <select name="role[]" class="select2"
                                             multiple="multiple"
-                                            data-placeholder="Any"
+                                            data-placeholder="select role"
                                             style="width: 100%;"
 
                                     >

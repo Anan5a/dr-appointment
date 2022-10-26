@@ -1,10 +1,12 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">{{ $table_title ?? 'Table' }}</h3>
+        <h3 class="card-title">{!! $table_title ?? 'Table' !!}</h3>
         {{ $filter_selection ?? '' }}
+        @isset($paginator)
         <div class="card-tools">
-            {{$paginator->links('includes.pagination', ["position"=>"float-right"])}}
+            {{ $paginator->links('includes.pagination', ["position"=>"float-right"])}}
         </div>
+        @endisset
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">

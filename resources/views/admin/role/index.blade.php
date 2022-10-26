@@ -44,6 +44,11 @@
                                             </i>
                                             View
                                         </a>
+                                        <a class="btn btn-info btn-sm" href="{{route('admin.role.edit', ['role'=>$role->id])}}">
+                                            <i class="fas fa-pen">
+                                            </i>
+                                            Edit
+                                        </a>
                                         {{--
                                         <a class="btn btn-primary btn-sm" href="{{ route('admin.role.edit', ['user'=>$role->id]) }}">
                                             <i class="fas fa-pencil-alt">

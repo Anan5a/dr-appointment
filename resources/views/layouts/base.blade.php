@@ -15,9 +15,12 @@
 <body class="@yield('body-class', '')">
 
 <div class="wrapper">
+    @include('layouts.menu-base')
+
     <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset('img/logo.png') }}" alt="{{ config('app.name') }} Logo" height="60" width="60">
     </div>
+
     @yield('content')
 </div>
 {{--<div class="wrapper">--}}

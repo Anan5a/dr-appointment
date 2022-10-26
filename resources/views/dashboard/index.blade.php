@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">User</h1>
+        <h1 class="text-black-50">Home page</h1>
         @include('includes.breadcrumb')
     </div>
 @endsection

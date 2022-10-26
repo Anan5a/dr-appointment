@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ViewRoleRequest;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -45,22 +48,22 @@ class RoleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+        return view('admin.role.view-role', compact('role'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        return view('admin.role.edit-role', compact('role'));
     }
 
     /**
@@ -68,11 +71,12 @@ class RoleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $role->syncPermissions($request->only('permission'));
+        return redirect()->route('admin.home.index')->with('message', 'Role permissions updated');
     }
 
     /**

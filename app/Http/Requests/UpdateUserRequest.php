@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:40', 'min:3'],
 //            'email' => ['required', 'string', 'email:rfc', 'max:255', 'unique:users'],
             'mobile'=>['required', 'regex:/0\d{10}/i'],
-            'date_of_birth'=> ['required', 'date','before:now'],
+            'date_of_birth'=> ['date','before:now'],
             'role[]'=>[Rule::in(Role::all()->pluck('id'))]
         ];
     }

@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('page.main');
+Route::get('/', [PageController::class, 'index'])->name('page.main');
 
 Route::group(['middleware'=>["auth","verified", "permission"]], function (){
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
@@ -37,6 +37,7 @@ Route::group(['middleware'=>["auth","verified", "permission"]], function (){
         Route::resource('doctor-profile', DoctorQualificationController::class);
         Route::resource('role', RoleController::class);
         Route::resource('permission', PermissionController::class);
+
     });
     Route::resource('schedule', ScheduleController::class);
     Route::resource('appointment', AppoinmentController::class);

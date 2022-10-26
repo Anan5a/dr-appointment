@@ -1,10 +1,10 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    @role('patient')
-        <a href="{{ route('home.index') }}" class="brand-link">
-    @else
-        <a href="{{ route('admin.home.index') }}" class="brand-link">
-    @endrole
-    <a href="{{ route('home.index') }}" class="brand-link">
+{{--    @role('patient')--}}
+{{--        <a href="{{ route('home.index') }}" class="brand-link">--}}
+{{--    @else--}}
+{{--        <a href="{{ route('admin.home.index') }}" class="brand-link">--}}
+{{--    @endrole--}}
+    <a href="{{ route('page.main') }}" class="brand-link">
         <img src="{{ asset('img/logo.png') }}"
              alt="{{ config('app.name') }} Logo"
              class="brand-image img-circle elevation-3">

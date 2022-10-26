@@ -30,14 +30,16 @@ class UserController extends Controller
      */
     public function index(ViewUsersRequest $request)
     {
-        $users = User::with('roles');
+        $users = null;
         if ($request->query('result_type') && !in_array('all', $request->query('result_type', []))) {
             $users = User::role(Role::find($request->query('result_type')));
         }
-        if ($request->query('query')) {
+        elseif ($request->query('query')) {
             $users->where('first_name', 'like', "%{$request->query('query')}%")
                 ->orWhere('last_name', 'like', "%{$request->query('query')}%")
                 ->orWhere('mobile', 'like', "%{$request->query('query')}%");
+        }else{
+            $users = User::with('roles');
         }
         $users = $users->orderBy('id', $request->query('sort_order', self::SORT))
             ->paginate($request->query('per_page', self::PER_PAGE));
@@ -74,11 +76,11 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $user
-     * @return Response
+     * @return Application|Factory|View
      */
-    public function show(ShowUserRequest|Request $request, User $user)
+    public function show(User $user, Request $request)
     {
-        dd($user);
+        return view('page.profile', compact('user'));
     }
 
     /**
@@ -101,9 +103,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->only('first_name','last_name','date_of_birth','mobile'));
-        $user->syncRoles(Role::find($request->role));
-        return redirect()->route('admin.home.index')->with('message','User updated successfully!');
+        if ($request->has('date_of_birth')){
+            $user->update($request->only('first_name','last_name','date_of_birth','mobile'));
+        }else{
+            $user->update($request->only('first_name','last_name','mobile'));
+        }
+        if ($request->has('role')){
+            $user->syncRoles(Role::find($request->role));
+        }
+
+        return redirect()->back()->with('message','User updated successfully!');
     }
 
     /**
@@ -122,8 +131,8 @@ class UserController extends Controller
         return redirect()->back()->with('message','User deleted successfully!');
     }
 
-    public function profile(Request $request): Response
+    public function profile(Request $request): Application|Factory|View
     {
-        return $this->show($request, auth()->user());
+        return $this->show(auth()->user(), $request);
     }
 }

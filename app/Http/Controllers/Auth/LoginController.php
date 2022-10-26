@@ -46,7 +46,7 @@ class LoginController extends Controller
             return redirect()->route('admin.home.index');
         }
         elseif ($user->hasRole('patient')){
-            return redirect()->route('admin.home.index');
+            return redirect()->route('home.index');
         }
     }
 }
