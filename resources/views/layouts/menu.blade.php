@@ -40,7 +40,6 @@
         <i class="nav-icon fas fa-user"></i>
         <p>Patients</p>
     </a>
-
 </li>
 <li class="nav-item">
     <a href="{{ route('user.index') }}" class="nav-link {{ Request::route()->getName() == "user.index"
@@ -49,13 +48,13 @@
         <p>All Users</p>
     </a>
 </li>
-<li class="nav-item">
-    <a href="{{ route('user.index', ['result_type[]'=>Role::findByName('patient')->id]) }}" class="nav-link {{ Request::route()->getName() == "user.index"
-               && in_array(Role::findByName('patient')->id, Request::query('result_type', [])) ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-alt"></i>
-        <p>Files</p>
-    </a>
-</li>
+{{--<li class="nav-item">--}}
+{{--    <a href="{{ route('user.index', ['result_type[]'=>Role::findByName('patient')->id]) }}" class="nav-link {{ Request::route()->getName() == "user.index"--}}
+{{--               && in_array(Role::findByName('patient')->id, Request::query('result_type', [])) ? 'active' : '' }}">--}}
+{{--        <i class="nav-icon fas fa-file-alt"></i>--}}
+{{--        <p>Files</p>--}}
+{{--    </a>--}}
+{{--</li>--}}
 @endhasrole
 @hasanyrole('super admin|manager')
 
@@ -96,23 +95,23 @@
 </li>
 @endhasrole
 @hasrole('patient')
-<li class="nav-item">
-    <a href="{{ route('schedule.index') }}" class="nav-link {{ Request::route()->getName() == "schedule.index" ? 'active' : '' }}">
-        <i class="nav-icon fas fa-calendar-day"></i>
-        <p>Schedules</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('appointment.index') }}" class="nav-link {{ Request::route()->getName() == "appointment.index" ? 'active' : '' }}">
-        <i class="nav-icon fas fa-calendar-check"></i>
-        <p>Appointments</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('user.index', ['result_type[]'=>Role::findByName('patient')->id]) }}" class="nav-link {{ Request::route()->getName() == "user.index"
-               && in_array(Role::findByName('patient')->id, Request::query('result_type', [])) ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-alt"></i>
-        <p>Files</p>
-    </a>
-</li>
+{{--<li class="nav-item">--}}
+{{--    <a href="{{ route('schedule.index') }}" class="nav-link {{ Request::route()->getName() == "schedule.index" ? 'active' : '' }}">--}}
+{{--        <i class="nav-icon fas fa-calendar-day"></i>--}}
+{{--        <p>Schedules</p>--}}
+{{--    </a>--}}
+{{--</li>--}}
+{{--<li class="nav-item">--}}
+{{--    <a href="{{ route('appointment.index') }}" class="nav-link {{ Request::route()->getName() == "appointment.index" ? 'active' : '' }}">--}}
+{{--        <i class="nav-icon fas fa-calendar-check"></i>--}}
+{{--        <p>Appointments</p>--}}
+{{--    </a>--}}
+{{--</li>--}}
+{{--<li class="nav-item">--}}
+{{--    <a href="{{ route('user.index', ['result_type[]'=>Role::findByName('patient')->id]) }}" class="nav-link {{ Request::route()->getName() == "user.index"--}}
+{{--               && in_array(Role::findByName('patient')->id, Request::query('result_type', [])) ? 'active' : '' }}">--}}
+{{--        <i class="nav-icon fas fa-file-alt"></i>--}}
+{{--        <p>Files</p>--}}
+{{--    </a>--}}
+{{--</li>--}}
 @endhasanyrole

@@ -39,6 +39,8 @@ class PermissionMiddleware
 
         foreach ($permissions as $permission) {
             if (!$authGuard->user()->can($permission)) {
+                throw UnauthorizedException::forPermissions($permissions);
+
                 return redirect('/')->withErrors(['message'=>'You do not have permission for performing the action']);
 //                throw UnauthorizedException::forPermissions($permissions);
             }

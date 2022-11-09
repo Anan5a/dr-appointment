@@ -20,16 +20,16 @@
                             <p class="text-muted text-center">{{ ucwords(join(', ', (array) $user->roles->map->only('name')->flatten()->toArray()), ", ") }}</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
+{{--                                <li class="list-group-item">--}}
 
-                                    <b>Patients</b> <a class="float-right">1,322</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Appointments</b> <a class="float-right">543</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Active Schedules</b> <a class="float-right">13,287</a>
-                                </li>
+{{--                                    <b>Patients</b> <a class="float-right">1,322</a>--}}
+{{--                                </li>--}}
+{{--                                <li class="list-group-item">--}}
+{{--                                    <b>Appointments</b> <a class="float-right">543</a>--}}
+{{--                                </li>--}}
+{{--                                <li class="list-group-item">--}}
+{{--                                    <b>Active Schedules</b> <a class="float-right">13,287</a>--}}
+{{--                                </li>--}}
                                 @if( auth()->user()->hasAnyRole(['super admin', 'doctor']) || $user->id == auth()->id() )
                                 <li class="list-group-item">
                                     <b>Mobile number</b> <a class="float-right">+88 {{ $user->mobile }}</a>
@@ -42,45 +42,45 @@
                     <!-- /.card -->
 
                     <!-- About Me Box -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">About</h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Education</strong>
+{{--                    <div class="card card-primary">--}}
+{{--                        <div class="card-header">--}}
+{{--                            <h3 class="card-title">About</h3>--}}
+{{--                        </div>--}}
+{{--                        <!-- /.card-header -->--}}
+{{--                        <div class="card-body">--}}
+{{--                            <strong><i class="fas fa-book mr-1"></i> Education</strong>--}}
 
-                            <p class="text-muted">
-                                B.S. in Computer Science from the University of Tennessee at Knoxville
-                            </p>
+{{--                            <p class="text-muted">--}}
+{{--                                B.S. in Computer Science from the University of Tennessee at Knoxville--}}
+{{--                            </p>--}}
 
-                            <hr>
+{{--                            <hr>--}}
 
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+{{--                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>--}}
 
-                            <p class="text-muted">Malibu, California</p>
+{{--                            <p class="text-muted">Malibu, California</p>--}}
 
-                            <hr>
+{{--                            <hr>--}}
 
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+{{--                            <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>--}}
 
-                            <p class="text-muted">
-                                <span class="tag tag-danger">UI Design</span>
-                                <span class="tag tag-success">Coding</span>
-                                <span class="tag tag-info">Javascript</span>
-                                <span class="tag tag-warning">PHP</span>
-                                <span class="tag tag-primary">Node.js</span>
-                            </p>
+{{--                            <p class="text-muted">--}}
+{{--                                <span class="tag tag-danger">UI Design</span>--}}
+{{--                                <span class="tag tag-success">Coding</span>--}}
+{{--                                <span class="tag tag-info">Javascript</span>--}}
+{{--                                <span class="tag tag-warning">PHP</span>--}}
+{{--                                <span class="tag tag-primary">Node.js</span>--}}
+{{--                            </p>--}}
 
-                            <hr>
+{{--                            <hr>--}}
 
-                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+{{--                            <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>--}}
 
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-                                fermentum enim neque.</p>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+{{--                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam--}}
+{{--                                fermentum enim neque.</p>--}}
+{{--                        </div>--}}
+{{--                        <!-- /.card-body -->--}}
+{{--                    </div>--}}
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
@@ -115,7 +115,11 @@
 
                                         @foreach($user->appointments as $timeline)
                                             <div class="time-label">
-                                                <span class="bg-danger">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
+                                                @if($timeline->schedule->from->isPast())
+                                                    <span class="bg-success">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
+                                                @else
+                                                    <span class="bg-danger">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
+                                                @endif
                                             </div>
                                             <div>
                                                 <i class="fas fa-calendar-day bg-primary"></i>

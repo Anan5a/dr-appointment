@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreScheduleRequest extends FormRequest
+class ShowScheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreScheduleRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can($this->route()->getName());
+        return auth()->user()->hasAnyRole("super admin|manager|doctor");
     }
 
     /**
@@ -24,10 +24,7 @@ class StoreScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'from'=>'required|date|after:now',
-            'to'=>'required|date|after:now',
-            'color'=>'required|max:6|min:6',
-            'title'=>'required|max:10|min:5',
+            //
         ];
     }
 }

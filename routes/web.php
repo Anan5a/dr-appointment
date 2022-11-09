@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\AppoinmentController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AppointmentDataController;
 use App\Http\Controllers\DoctorQualificationController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('page.main');
+Route::get('/doctor/search', [UserController::class, 'search'])->name('page.search');
 
 Route::group(['middleware'=>["auth","verified", "permission"]], function (){
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home.index');
@@ -39,8 +40,10 @@ Route::group(['middleware'=>["auth","verified", "permission"]], function (){
         Route::resource('permission', PermissionController::class);
 
     });
+
+    Route::get('appointment/create/{user}', [AppointmentController::class,'create'])->name('appointment.create.v1');
     Route::resource('schedule', ScheduleController::class);
-    Route::resource('appointment', AppoinmentController::class);
+    Route::resource('appointment', AppointmentController::class);
     Route::resource('appointment-log', AppointmentDataController::class);
 
 });

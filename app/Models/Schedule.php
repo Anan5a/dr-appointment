@@ -18,6 +18,9 @@ class Schedule extends Model
     protected $fillable = [
         'from',
         'to',
+        'title',
+        'color',
+        'user_id'
     ];
 
     /**
@@ -37,6 +40,8 @@ class Schedule extends Model
     protected $casts = [
         'from' => 'datetime',
         'to' => 'datetime',
+        'title'=>'string',
+        'color'=>'string'
     ];
 
     public function appointment(): HasOne

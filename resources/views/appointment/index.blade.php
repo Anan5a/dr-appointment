@@ -17,20 +17,16 @@
                             <div class="tab-content">
                                 <div class="active tab-pane" id="timeline">
                                     <!-- The timeline -->
-                                    @if(count($appointments) == 0)
+                                    @if(count($user->appointments) == 0)
                                         <b><span class="fas fa-info-circle"></span> Nothing here...</b>
                                     @endif
                                     <div class="timeline timeline-inverse">
                                         <!-- timeline time label -->
 
-                                        @foreach($appointments as $timeline)
+                                        @foreach($user->appointments as $timeline)
 
                                             <div class="time-label">
-                                                @if($timeline->schedule->from->isPast())
-                                                    <span class="bg-success">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
-                                                @else
-                                                    <span class="bg-danger">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
-                                                @endif
+                                                <span class="bg-danger">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
                                             </div>
                                             <div>
                                                 <i class="fas fa-calendar-day bg-primary"></i>

@@ -9,18 +9,6 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- patients -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <!-- <a class="text-white" href="{{ route('admin.role.create') }}"> -->
-                            <a class="text-white" href="#" onclick="return toastr.info('Feature not implemented yet')">
-                                <h3><i class="fas fa-plus"></i></h3>
-                                <p>Add new role</p>
-                            </a>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-"></i>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-9 col-6">
 

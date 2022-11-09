@@ -23,6 +23,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $appointments = auth()->user()->appointments->reverse();
+        return view('dashboard.index', compact('appointments'));
     }
+
 }

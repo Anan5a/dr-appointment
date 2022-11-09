@@ -2,26 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShowScheduleRequest;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
+use App\Models\User;
+use http\Env\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(ShowScheduleRequest $request)
     {
-        return view('schedule.index');
+        return $this->show($request, auth()->user()->id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Schedule $schedule
+     * @return Application|Factory|View
+     */
+    public function show(ShowScheduleRequest $request,$user)
+    {
+        $user = User::with('schedules')
+            ->find(['id' => (int)$user])
+            ->first();
+        return view('schedule.index', compact('user'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,30 +53,22 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreScheduleRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreScheduleRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreScheduleRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schedule $schedule)
-    {
-        //
+        $data = $request->validated();
+        $data['user_id'] = auth()->id();
+        Schedule::create($data);
+        return redirect()->route('admin.home.index')->with('message', 'Schedule created');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
+     * @param Schedule $schedule
+     * @return Response
      */
     public function edit(Schedule $schedule)
     {
@@ -64,9 +78,9 @@ class ScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateScheduleRequest  $request
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
+     * @param UpdateScheduleRequest $request
+     * @param Schedule $schedule
+     * @return Response
      */
     public function update(UpdateScheduleRequest $request, Schedule $schedule)
     {
@@ -76,8 +90,8 @@ class ScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
+     * @param Schedule $schedule
+     * @return Response
      */
     public function destroy(Schedule $schedule)
     {

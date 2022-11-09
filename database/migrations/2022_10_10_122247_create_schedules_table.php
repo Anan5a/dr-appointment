@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamp('from')->nullable();
             $table->timestamp('to')->nullable();
+            $table->string('title');
+            $table->string('color');
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
