@@ -85,6 +85,23 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
+                                        <div class="input-group-text"><span class="fas fa--alt"></span>&nbsp;
+                                        </div>
+                                    </div>
+                                    <input type="text"
+                                           name="speciality"
+                                           value="{{ $user->speciality ?? old('speciality') }}"
+                                           class="form-control @error('speciality') is-invalid @enderror"
+                                           placeholder="Speciality">
+
+                                    @error('speciality')
+                                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                                    @enderror
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
                                         <div class="input-group-text"><span class="fas fa-calendar-alt"></span></div>
                                     </div>
                                     <input type="date"

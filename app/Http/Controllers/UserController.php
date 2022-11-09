@@ -95,7 +95,7 @@ class UserController extends Controller
         if ($request->has('date_of_birth')) {
             $user->update($request->only('first_name', 'last_name', 'date_of_birth', 'mobile'));
         } else {
-            $user->update($request->only('first_name', 'last_name', 'mobile'));
+            $user->update($request->only('first_name', 'last_name', 'mobile', 'speciality'));
         }
         if ($request->has('role')) {
             $user->syncRoles(Role::find($request->role));

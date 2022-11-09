@@ -22,22 +22,26 @@
                                     @endif
                                     <div class="timeline timeline-inverse">
                                         <!-- timeline time label -->
-
-                                        @foreach($user->appointments as $timeline)
+                                        @php $scs = $user->schedules->reverse() @endphp
+                                        @foreach($scs as $timeline)
 
                                             <div class="time-label">
-                                                <span class="bg-danger">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
+                                                @if($timeline->from->isPast())
+                                                    <span class="bg-success">{{ date_format($timeline->from, 'd M. Y') }}</span>
+                                                @else
+                                                    <span class="bg-danger">{{ date_format($timeline->from, 'd M. Y') }}</span>
+                                                @endif
                                             </div>
                                             <div>
                                                 <i class="fas fa-calendar-day bg-primary"></i>
 
                                                 <div class="timeline-item">
-                                                    <span class="time"><i class="far fa-clock"></i> {{ date_format($timeline->schedule->from, 'h:i A') }}</span>
+                                                    <span class="time"><i class="far fa-clock"></i> {{ date_format($timeline->from, 'h:i A') }}</span>
 
                                                     <h3 class="timeline-header">Appointment</h3>
 
                                                     <div class="timeline-body">
-                                                        Appointment with <b>{{ $timeline->schedule->user?->first_name }} {{ $timeline->schedule->user?->last_name }}</b>
+                                                        Appointment with <b>{{ $timeline->appointment->user?->first_name }} {{ $timeline->appointment->user?->last_name }}</b>
                                                     </div>
                                                 </div>
                                             </div>

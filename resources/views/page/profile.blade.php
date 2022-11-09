@@ -112,8 +112,8 @@
                                     @endif
                                     <div class="timeline timeline-inverse">
                                         <!-- timeline time label -->
-
-                                        @foreach($user->appointments as $timeline)
+                                        @php $aps = $user->appointments->reverse() @endphp
+                                        @foreach($aps as $timeline)
                                             <div class="time-label">
                                                 @if($timeline->schedule->from->isPast())
                                                     <span class="bg-success">{{ date_format($timeline->schedule->from, 'd M. Y') }}</span>
@@ -192,7 +192,25 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        @hasanyrole('super admin|doctor|manager')
+                                        <div class="form-group row">
+                                            <label for="IDSpc" class="col-sm-2 col-form-label">Speciality</label>
+                                            <div class="col-sm-10">
+                                                <input type="text"
+                                                       name="speciality"
+                                                       id="IDSpc"
+                                                       value="{{ $user->speciality ?? old('speciality') }}"
+                                                       class="form-control @error('speciality') is-invalid @enderror"
+                                                       placeholder="Speciality">
 
+                                                @error('mobile')
+                                                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        @endhasanyrole
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" class="btn btn-danger">Submit</button>
